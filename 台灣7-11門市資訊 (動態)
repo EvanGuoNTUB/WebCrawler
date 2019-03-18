@@ -13,3 +13,31 @@ for index, city in enumerate(city):
         df_7_11_store = df_7_11_store.append(df_7_11_store_)
     print('%2d)%-*s%4d'% (index+1,5,city,pd.read_html(res.text,header=0)[0].shape[0]))
 df_7_11_store.to_excel('7_11門市.xlsx',encoding="UTF-8",index=False)
+
+//台灣7-11門市資訊網: http://www.ibon.com.tw/ErrorMsgPage.html?aspxerrorpath=/retail_inquiry_ajax.aspx
+        
+//-------output--------//
+(測試時網頁已掛)
+ 1)基隆市     0
+ 2)台北市     0
+ 3)新北市     0
+ 4)桃園市     0
+ 5)新竹市     0
+ 6)新竹縣     0
+ 7)苗栗縣     0
+ 8)台中市     0
+ 9)彰化縣     0
+10)雲林縣     0
+11)南投縣     0
+12)嘉義縣     0
+13)嘉義市     0
+14)台南市     0
+15)高雄市     0
+16)屏東市     0
+17)台東縣     0
+18)花蓮縣     0
+19)宜蘭縣     0
+20)連江縣     0
+21)金門縣     0
+22)澎湖縣     0
+//-------output--------//
