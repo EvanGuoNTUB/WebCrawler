@@ -1,3 +1,5 @@
+//台銀匯率網: https://rate.bot.com.tw/xrt?Lang=zh-TW
+
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import csv
@@ -25,7 +27,7 @@ for single_tr in bsObj.find("table",{"title":"牌告匯率"}).find("tbody").find
         w= csv.writer(f)
         w.writerows(data)
         f.close()
-/* output
+//-------output--------//
 美金(USD) 31.125
 港幣(HKD) 3.98
 英鎊(GBP) 41.93
@@ -45,4 +47,4 @@ for single_tr in bsObj.find("table",{"title":"牌告匯率"}).find("tbody").find
 越南盾(VND) 0.00146
 馬來幣(MYR) 8.083
 人民幣(CNY) 4.66
-*/
+//-------output--------//
