@@ -27,6 +27,7 @@ for single_tr in bsObj.find("table",{"title":"牌告匯率"}).find("tbody").find
         w= csv.writer(f)
         w.writerows(data)
         f.close()
+        
 //-------output--------//
 美金(USD) 31.125
 港幣(HKD) 3.98
