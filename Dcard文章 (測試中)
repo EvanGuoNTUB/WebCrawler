@@ -1,12 +1,11 @@
 from urllib.request import urlopen
+from six.moves import urllib
 from bs4 import BeautifulSoup
 import csv
 from time import localtime, strftime, mktime
 from datetime import datetime
 from os.path import exists
 import matplotlib.pyplot as plt
-html = urlopen("https://www.dcard.tw/f/ntub?latest=true")
-bsObj = BeautifulSoup(html,"lxml")
 
 headers={
     'Host':'https://www.dcard.tw/f/ntub?latest=true',
@@ -21,6 +20,11 @@ user_agents = [
     "Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.7 (KHTML, like Gecko) Ubuntu/11.04 Chromium/16.0.912.77 Chrome/16.0.912.77 Safari/535.7",
     "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0 ",
 ]
+
+req = urllib.request.Request(url="https://www.dcard.tw/f/ntub?latest=true", headers=headers)
+urllib.request.urlopen("https://www.dcard.tw/f/ntub?latest=true").read()
+
+bsObj = BeautifulSoup(html,"lxml")
 
 # def getHtml(url):
 #     page1=urllib.request.Request(url,headers=headers)
@@ -65,3 +69,16 @@ for single_tr in bsObj.find("div",{"class":"PostList_entry_1rq5Lf"}).findAll("di
         w= csv.writer(f)
         w.writerows(data)
         f.close()
+
+for index,title,excerpt,time in enumerate(title,excerpt,time):
+    data = {"title":"%s" % title,"excerpt":"%s" % excerpt, "createdAt":"%s"% time}
+    res = requests.post('https://www.dcard.tw/f/ntub?latest=true', data=data)
+    if index == 0:
+        article = pd.read_html(res.text, header=0)[0]
+        article['title'] = title
+    if index > 0:
+        article_= pd.read_html(res.text, header=0)[0]
+        article_['title'] = title
+        article = article.append(article_)
+    print('%2d)%-*s%4d'% (index+1,5,title,pd.read_html(res.text,header=0)[0].shape[0]))
+article.to_excel('Dcard_article.xlsx',encoding="UTF-8",index=False)
